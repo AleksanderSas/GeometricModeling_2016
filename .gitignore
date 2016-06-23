@@ -1,0 +1,15 @@
+# igonre images
+*.png
+*.ppm
+*.pgm
+*.jpg
+*.bmp
+
+# ignore pdf documents
+*.pdf
+
+# ignore some binary files
+*.mat
+
+# ignore something else
+*.asv

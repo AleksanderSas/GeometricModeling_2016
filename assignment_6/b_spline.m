@@ -1,8 +1,7 @@
-function points = b_spline(controlPoints, intervalNum)
+function points = b_spline(controlPoints, intervalNum, points, first, last)
     controlNodes = getControlNodes(size(controlPoints, 2), 4);
-    points = zeros(2,intervalNum);
     intervals = linspace(0.000001,.99999999,intervalNum);
-    for i = 1:intervalNum
+    for i = first:last
         points(:,i) = deBoor(controlPoints, controlNodes, intervals(i), 4);
     end
 

@@ -6,6 +6,7 @@ myhandles.dragStyle=0;
 myhandles.pressPosition = [0,0];
 myhandles.currentPoint = 0;
 myhandles.firstTime = true;
+myhandles.points2draw_number = 20000;
 
 %% design a basic  interface
 % seup axis with a grid layout for drawing 
@@ -28,15 +29,15 @@ guidata(gcf,myhandles)
 
 function myhandles = update_curve(myhandles)
     if myhandles.firstTime
-        points = b_spline( myhandles.points, 20000, myhandles.points2draw, 1 , 20000);
+        points = b_spline( myhandles.points, myhandles.points2draw_number, myhandles.points2draw, 1 , myhandles.points2draw_number);
         myhandles.points2draw = points;
         myhandles.firstTime = false;
         myhandles.control_polygon=plot(points(1,:), points(2,:)); hold on;
     else
-        c = 20000 / size(myhandles.points, 2) * myhandles.currentPoint;
-        first = uint32(c - 2000 / 10);
-        last = uint32(c + 2000 / 10);
-        points = b_spline( myhandles.points, 20000, myhandles.points2draw,first, last);
+        c = myhandles.points2draw_number / size(myhandles.points, 2) * myhandles.currentPoint;
+        first = uint32(c - myhandles.points2draw_number / 100);
+        last = uint32(c + myhandles.points2draw_number / 100);
+        points = b_spline( myhandles.points, myhandles.points2draw_number, myhandles.points2draw,first, last);
         myhandles.points2draw = points;
         set(myhandles.control_polygon,'Xdata',points(1,:));
         set(myhandles.control_polygon,'Ydata',points(2,:));
@@ -56,7 +57,7 @@ function myhandles = draw_curve(myhandles)
     myhandles.points = B;
     myhandles.points_t = B';
     
-    myhandles.points2draw = zeros(2,20000);
+    myhandles.points2draw = zeros(2,myhandles.points2draw_number);
     myhandles.control_polygon=plot(A(1,:), A(2,:), 'x', 'color','b'); hold on 
     myhandles = update_curve(myhandles);
     

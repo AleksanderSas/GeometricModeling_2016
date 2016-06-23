@@ -2,8 +2,6 @@ function data_out = smooth(data_in, window_size, degree)
     data_out = zeros(0,0);
     step = window_size / 2;
     i = 1;
-    k = 1;
-    step2 = 2;
     
     t = linspace(1, 10, window_size);
     points = [3.75,6.25];
@@ -14,5 +12,4 @@ function data_out = smooth(data_in, window_size, degree)
             poli_approximation(t, subdata(2,:), points ,degree)]];
         
         i = i + step;
-        k = k + step2;
     end

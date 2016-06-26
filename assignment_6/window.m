@@ -32,15 +32,18 @@ function myhandles = update_curve(myhandles)
         points = b_spline( myhandles.points, myhandles.points2draw_number, myhandles.points2draw, 1 , myhandles.points2draw_number);
         myhandles.points2draw = points;
         myhandles.firstTime = false;
-        myhandles.control_polygon=plot(points(1,:), points(2,:)); hold on;
+        myhandles.curve=plot(points(1,:), points(2,:)); hold on;
+        myhandles.control_polygon2=plot(myhandles.points(1,:), myhandles.points(2,:), '*', 'color', 'r'); hold on;
     else
         c = myhandles.points2draw_number / size(myhandles.points, 2) * myhandles.currentPoint;
         first = uint32(c - myhandles.points2draw_number / 100);
         last = uint32(c + myhandles.points2draw_number / 100);
         points = b_spline( myhandles.points, myhandles.points2draw_number, myhandles.points2draw,first, last);
         myhandles.points2draw = points;
-        set(myhandles.control_polygon,'Xdata',points(1,:));
-        set(myhandles.control_polygon,'Ydata',points(2,:));
+        set(myhandles.curve,'Xdata',points(1,:));
+        set(myhandles.curve,'Ydata',points(2,:));
+        set(myhandles.control_polygon2,'Xdata',myhandles.points(1,:));
+        set(myhandles.control_polygon2,'Ydata',myhandles.points(2,:));
     end
 
 function myhandles = draw_curve(myhandles)
@@ -58,7 +61,7 @@ function myhandles = draw_curve(myhandles)
     myhandles.points_t = B';
     
     myhandles.points2draw = zeros(2,myhandles.points2draw_number);
-    myhandles.control_polygon=plot(A(1,:), A(2,:), 'x', 'color','b'); hold on 
+    myhandles.curve=plot(A(1,:), A(2,:), 'x', 'color','b'); hold on 
     myhandles = update_curve(myhandles);
     
 %% Mouse button pressed

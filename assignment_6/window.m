@@ -36,8 +36,8 @@ function myhandles = update_curve(myhandles)
         myhandles.control_polygon2=plot(myhandles.points(1,:), myhandles.points(2,:), '*', 'color', 'r'); hold on;
     else
         c = myhandles.points2draw_number / size(myhandles.points, 2) * myhandles.currentPoint;
-        first = uint32(c - myhandles.points2draw_number / 100);
-        last = uint32(c + myhandles.points2draw_number / 100);
+        first = uint32(c - myhandles.points2draw_number / 50);
+        last = uint32(c + myhandles.points2draw_number / 50);
         points = b_spline( myhandles.points, myhandles.points2draw_number, myhandles.points2draw,first, last);
         myhandles.points2draw = points;
         set(myhandles.curve,'Xdata',points(1,:));

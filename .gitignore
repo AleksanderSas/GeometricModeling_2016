@@ -13,3 +13,6 @@
 
 # ignore something else
 *.asv
+
+# ignote temporary files
+~*
